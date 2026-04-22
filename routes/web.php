@@ -2,15 +2,23 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ZoneController;
+
+
 Route::get('/detail', function () {
     return view('landing.pages.detail');
 });
 Route::get('/', function () {
-    return view('landing.pages.index');
+    $zones = \App\Models\Zone::all();
+    return view('landing.pages.index', compact('zones'));
 });
 
-Route::get('/', function () {
-    return view('admin.pages.index');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', function () {
+    return view('admin.pages.index')->name('index');
+    });
+    Route::resource('zones', ZoneController::class);
+
 });
 
 Route::get('/dashboard', function () {
@@ -28,5 +36,10 @@ Route::prefix('admin')->group(function () {
         return view('admin.master');
     })->name('admin.index');
 });
+
+
+
+    
+
 
 require __DIR__.'/auth.php';

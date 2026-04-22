@@ -44,10 +44,7 @@
                 <div class="custom-container">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-12">
-                            <!-- Page header -->
-                            <div class="mb-5">
-                                <h1 class="mb-3 h2">Blank</h1>
-                            </div>
+                            @yield('content')
                         </div>
                     </div>
                 </div>
@@ -61,9 +58,7 @@
 
             <div id="app">
 
-    <div class="page-content">
-        @yield('content')
-    </div>
+
 
     <!-- FOOTER -->
     <footer class="footer border-top py-3 bg-white">
