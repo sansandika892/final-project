@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Http\Controllers\ZoneController;
 
 return new class extends Migration
 {
@@ -12,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('zones', function (Blueprint $table) {
+        Schema::create('_attractions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+             $table->string('name');
             $table->string('description');
-            $table->string('price_range');
+            $table->string('create_at');
             $table->string('image');
             $table->timestamps();
         });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('zones');
+        Schema::dropIfExists('_attractions');
     }
 };

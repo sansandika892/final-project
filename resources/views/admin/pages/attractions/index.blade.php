@@ -5,9 +5,9 @@
 <div class="container mt-4">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="fw-bold">Zone Management</h3>
-        <a href="{{ route('admin.zones.create') }}" class="btn btn-success">
-            + Create New Zone
+        <h3 class="fw-bold">Attraction Management</h3>
+        <a href="{{ route('admin.attractions.create') }}" class="btn btn-success">
+            + Create New Attraction
         </a>
     </div>
 
@@ -25,29 +25,42 @@
                         <th>ID</th>
                         <th>Name</th>
                         <th>Description</th>
+                        <th>Ticket Price</th>
                         <th>Image</th>
                         <th width="180">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($zones as $zone)
+                    @foreach ($attractions as $attraction)
                     <tr>
-                        <td class="text-center">{{ $zone->id }}</td>
-                        <td class="fw-semibold">{{ $zone->name }}</td>
-                        <td class="text-muted">{{ $zone->description }}</td>
+                        <td class="text-center">{{ $attraction->id }}</td>
+
+                        <td class="fw-semibold">
+                            {{ $attraction->name }}
+                        </td>
+
+                        <td class="text-muted">
+                            {{ $attraction->description }}
+                        </td>
+
+                        <td class="text-center text-success fw-bold">
+                            Rp {{ number_format($attraction->ticket_price, 0, ',', '.') }}
+                        </td>
+
                         <td class="text-center">
-                            <img src="{{ asset('/storage/images/' . $zone->image) }}" 
-                                 alt="{{ $zone->name }}" 
+                            <img src="{{ asset('/storage/images/' . $attraction->image) }}" 
+                                 alt="{{ $attraction->name }}" 
                                  class="rounded shadow-sm"
                                  width="80">
                         </td>
+
                         <td class="text-center">
-                            <a href="{{ route('admin.zones.edit', $zone->id) }}" 
+                            <a href="{{ route('admin.attractions.edit', $attraction->id) }}" 
                                class="btn btn-sm btn-warning me-1">
                                 Edit
                             </a>
 
-                            <form action="{{ route('admin.zones.destroy', $zone->id) }}" 
+                            <form action="{{ route('admin.attractions.destroy', $attraction->id) }}" 
                                   method="POST" 
                                   style="display:inline-block;">
                                 @csrf
@@ -62,10 +75,10 @@
                     </tr>
                     @endforeach
 
-                    @if($zones->isEmpty())
+                    @if($attractions->isEmpty())
                     <tr>
-                        <td colspan="5" class="text-center text-muted p-4">
-                            No data available
+                        <td colspan="6" class="text-center text-muted p-4">
+                            No attractions available
                         </td>
                     </tr>
                     @endif

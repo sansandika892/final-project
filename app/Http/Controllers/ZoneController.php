@@ -8,15 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 class ZoneController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $keyword = $request->input('search');
-
-        if ($keyword != '') {
-            $zones = Zone::where('name', 'LIKE', '%' . $keyword . '%')->paginate(5);
-        } else {
-            $zones = Zone::orderBy('id')->paginate(5);
-        }
+        $zones = Zone::all();
 
         return view('admin.pages.zones.index', compact('zones'));
     }
@@ -24,7 +18,7 @@ class ZoneController extends Controller
     public function show($id)
     {
         $zone = Zone::findOrFail($id);
-        return view('pages.zones.detail', compact('zone'));
+        return view('admin.pages.zones.detail', compact('zone'));
     }
 
     public function create()
@@ -46,6 +40,7 @@ class ZoneController extends Controller
             $validated['image'] = basename($imagePath);
         }
 
+        Zone::create($validated);
 
         return redirect()->route('admin.zones.index')->with('success', 'Zone created successfully.');
     }
@@ -53,7 +48,7 @@ class ZoneController extends Controller
     public function edit($id)
     {
         $zone = Zone::findOrFail($id);
-        return view('pages.zones.edit', compact('zone'));
+        return view('admin.pages.zones.edit', compact('zone'));
     }
 
     public function update(Request $request, $id)
@@ -78,7 +73,7 @@ class ZoneController extends Controller
 
         $zone->update($validated);
 
-        return redirect()->route('zones.index')->with('success', 'Zone updated successfully.');
+        return redirect()->route('admin.zones.index')->with('success', 'Zone updated successfully.');
     }
 
     public function destroy($id)
